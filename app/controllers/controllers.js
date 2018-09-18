@@ -2,13 +2,15 @@ let mongoose = require('mongoose');
 let User = mongoose.model('User');
 let request = require('request');
 let querystring = require('querystring');
+let dotenv = require('dotenv');
+dotenv.config();
 
 let redirect_uri = process.env.REDIRECT_URI;
 
 
 module.exports = {
     login: function(req, res) {
-        console.log('*** controller.login & request ***', req.body);
+        // console.log('*** controller.login & request ***', req.body);
         res.redirect(
             'https://accounts.spotify.com/authorize?' +
             querystring.stringify({
