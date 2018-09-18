@@ -3,7 +3,7 @@ let User = mongoose.model('User');
 let request = require('request');
 let querystring = require('querystring');
 
-let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8888/callback';
+let redirect_uri = process.env.REDIRECT_URI;
 
 
 module.exports = {
