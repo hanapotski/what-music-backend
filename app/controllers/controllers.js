@@ -50,6 +50,19 @@ module.exports = {
         });
     },
 
+    getAllUsers: function(req, res) {
+        console.log('*** controller.getAllUsers start ***');
+        User.find({}, function(err, users) {
+            if (err) {
+                console.log('*** error in getAllUsers.user.find() ***', err);
+                res.json(err);
+            } else if (users) {
+                console.log('*** getAllUsers found allUsers, sending response ***');
+                res.json(users);
+            }
+        })
+    },
+
     getUserByEmail: function(req, res) {
         console.log('*** controller.getUserByEmail & request ***', req.body, req.params.email);
         User.findOne({email: req.params.email}, function(err, user) {
@@ -80,15 +93,16 @@ module.exports = {
                 let userData = {};
                 for (let i of Object.keys(req.body)) {
                     userData[i] = req.body[i];
+                    // console.log(userData[i]);
                 }
-                console.log('*** userData to update dbase ***', userData);
+                console.log('*** userData to update dbase ***', typeof userData);
 
                 User.findOneAndUpdate({email: req.body.email}, { $set: userData}, { returnNewDocument: true }, function(err, doc) {
                     if (err) {
                         console.log('*** error in User.findOne... ***', err);
                         res.json(err);
                     }
-                    console.log('*** User.findOne... finished ***', doc);
+                    console.log('*** User.findOne... finished ***');
                     res.json();
                 });
 
@@ -104,6 +118,16 @@ module.exports = {
                     res.json('{result: "success"}');
                 });
             }
+        });
+    },
+
+    deleteOne: function(req, res) {
+        User.findOneAndDelete({email: req.body.email}, function(err) {
+            if (err) {
+                console.log('*** deleteOne error ***', err);
+                res.json(err);
+            }
+            res.json();
         });
     }
 

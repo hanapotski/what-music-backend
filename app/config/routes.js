@@ -5,6 +5,8 @@ module.exports = router
     .get('/login', controller.login)
     .get('/callback', controller.callback)
     .get('/dbase/user/:email', controller.getUserByEmail)
+    .get('/dbase/allUsers', controller.getAllUsers)
     .post('/dbase/user', controller.createUser)
+    .delete('/dbase/deleteOne', controller.deleteOne)
 ;
 
