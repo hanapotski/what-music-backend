@@ -28,6 +28,3 @@ app.use(require('./app/config/routes.js'));
 app.listen(process.env.PORT, function() {
     console.log(`*** johnahnz0rs is l33t on port ${process.env.PORT}***`);
 });
-// app.listen(8000, function() {
-//     console.log('*** johnahnz0rs is l33t on port 8000 ***');
-// });
