@@ -67,7 +67,7 @@ module.exports = {
     },
 
     createUser: function(req, res) {
-        console.log('*** controller createUser ***', req.body);
+        // console.log('*** controller createUser ***', req.body);
 
         User.findOne({email: req.body.email}, function(err, user) {
             if (err) {
@@ -89,7 +89,7 @@ module.exports = {
                         res.json(err);
                     }
                     console.log('*** User.findOne... finished ***', doc);
-                    res.json('{result: "success"}');
+                    res.json();
                 });
 
 
