@@ -81,10 +81,13 @@ module.exports = {
 
     createUser: function(req, res) {
         // console.log('*** controller createUser ***', req.body);
+        console.log('*** this is controller.createUser ***', req.body.favArtistsByGlobalPopularity);
+        console.log(req.body.email);
+        console.log(req.body.user);
 
         User.findOne({email: req.body.email}, function(err, user) {
             if (err) {
-                console.log('*** error in user.findOne ***', err);
+                // console.log('*** error in user.findOne ***', err);
                 res.json(err);
 
 
@@ -93,16 +96,29 @@ module.exports = {
                 let userData = {};
                 for (let i of Object.keys(req.body)) {
                     userData[i] = req.body[i];
-                    // console.log(userData[i]);
+                    // console.log(i, ":", userData[i]);
+                    console.log(i);
                 }
-                console.log('*** userData to update dbase ***', typeof userData);
+                // console.log('*** userData to update dbase ***', userData);
 
-                User.findOneAndUpdate({email: req.body.email}, { $set: userData}, { returnNewDocument: true }, function(err, doc) {
+                // User.findOneAndUpdate({email: req.body.email}, { $set: userData}, { returnNewDocument: true }, function(err, doc) {
+                //     if (err) {
+                //         console.log('*** error in User.findOne... ***', err);
+                //         res.json(err);
+                //     }
+                //     console.log('*** User.findOneAndUpdate() finished ***');
+                //     res.json();
+                // });
+                // console.log('*** this is User.create req.body.email ***', req.body.email);
+                User.updateOne({email: req.body.email}, {favArtistsByGlobalPopularity: userData.favArtistsByGlobalPopularity }, function(err, count, lol) {
                     if (err) {
-                        console.log('*** error in User.findOne... ***', err);
+                        console.log('*** error in User.findOneAndUpdate ***', err);
                         res.json(err);
                     }
-                    console.log('*** User.findOne... finished ***');
+                    user.save();
+                    // console.log('*** no errors in User.findOneAndUpdate() ***');
+                    // console.log(count);
+                    // console.log(lol);
                     res.json();
                 });
 
@@ -111,10 +127,10 @@ module.exports = {
                 // if no user exists, then create user;
                 User.create(req.body, function(err) {
                     if (err) {
-                        console.log('*** error in User.create ***', err);
+                        // console.log('*** error in User.create ***', err);
                         res.json(err);
                     }
-                    console.log('*** User.create finished ***');
+                    // console.log('*** User.create finished ***');
                     res.json('{result: "success"}');
                 });
             }
